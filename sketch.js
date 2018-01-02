@@ -35,7 +35,7 @@ function getReleativeDays(x){
 
 function getRelativeShortDistance( x){
 /* get shorter orbit distance relative to earth*/
-	var temp = ( 70 / 147.1) * x;
+	var temp = ( 80 / 147.1) * x;
 	return temp;
 	
 }
@@ -90,8 +90,12 @@ this.pcoord = [];
 
 this.orbit = function(){
 	push();
-	translate(0,this.ycoord,0);
-	torus(this.a,2);
+	//translate(0,this.ycoord,0);
+	rotateX(radians(90));
+	var sb = this.b / this.a ;
+	scale(1, sb);
+	fill(200);
+	torus(this.a,0.1,50,30);
 	pop();
 };
 
@@ -177,8 +181,8 @@ function asteroid_show(){
 }
 
 function setup(){
-	var w = window.innerWidth - 30;
-	var h = window.innerHeight - 30;
+var w = window.innerWidth - 30;
+var h = window.innerHeight - 30;
   createCanvas(w, h, WEBGL);
   bkimg = loadImage("assets/milkyway.jpg");
   sun = new heavenlyBody("sun",50000,0,0,1,365,-10,false,0);
@@ -194,8 +198,8 @@ function setup(){
   
   jupiter = new heavenlyBody("jupiter",72984,500,450,1,4380,24,false,90);
   saturn = new heavenlyBody("saturn",60536,800,700,1,10767.5,24,true,5);
-  uranus = new heavenlyBody("uranus",40118, 1200,900,1,30660,24,true,45);
-  neptune = new heavenlyBody("neptune",30528,1500,1000,1,59800,24,true,90);
+  uranus = new heavenlyBody("uranus",40118, 1200,900,1,30660,24,true,90);
+  neptune = new heavenlyBody("neptune",30528,1500,1000,1,59800,24,true,28.32);
   pluto = new heavenlyBody("pluto",5000,1900,1500,1,90520,24,false,5);
 
 }
@@ -216,11 +220,25 @@ function draw(){
   pop();
   ambientLight(150);
   pointLight(200, 200, 200, 0, 0, 0);
-  //orbitControl();
+
   push();
   
   rotateX(radians(xangle));
   rotateY(radians(yangle));
+  var orbitshow = document.getElementById("orbitshow").checked;
+  if (orbitshow)
+  {
+	  mercury.orbit();
+	  venus.orbit();
+	  earth.orbit();
+	  mars.orbit();
+	  jupiter.orbit();
+	  saturn.orbit();
+	  uranus.orbit();
+	  neptune.orbit();
+	  pluto.orbit();
+  }
+   
   sun.show();
   mercury.show();
   earth.show();
