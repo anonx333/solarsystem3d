@@ -11,7 +11,7 @@ var uranus;
 var neptune;
 
 var pluto;
-
+var pause = false;
 var asteroid = [];
 
 
@@ -235,8 +235,8 @@ function draw(){
   neptune.show();
   pluto.show();
   
- 
-  mercury.update();
+  if(!pause){
+	   mercury.update();
   sun.update();
   earth.update();
   venus.update();
@@ -249,5 +249,18 @@ function draw(){
   uranus.update();
   neptune.update();
   pluto.update();
+  }
+ 
   pop();
+}
+
+function pausescreen(){
+	if(pause){
+		pause = false;
+		document.getElementById("pausebutton").value = "Pause";
+	}
+	else{
+		pause = true;
+		document.getElementById("pausebutton").value = "Play";
+	}
 }
